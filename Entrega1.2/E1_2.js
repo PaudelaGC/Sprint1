@@ -34,5 +34,7 @@ class Personatge {
   }
 }
 
+//No he trobat com realitzar aquest procediment
+
 
 
