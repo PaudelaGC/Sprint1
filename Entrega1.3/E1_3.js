@@ -80,7 +80,7 @@ let salaries = [
 //Fem diverses proves
 var searchId = [0, 1, 2, 3, 4, 5];
 for (let i = 0; i < searchId.length; i++) {
-  const busqueda = new Promise((resolve, reject) => {
+  const busquedaEmpleat = new Promise((resolve, reject) => {
     if (employees.some((v) => v.id === searchId[i])) {
       const nom = () => employees.find((x) => x.id === searchId[i]).name;
       resolve(nom);
@@ -88,7 +88,7 @@ for (let i = 0; i < searchId.length; i++) {
       reject(new Error(`No hi ha cap empleat amb l'id ${searchId[i]}`));
     }
   });
-  busqueda
+  busquedaEmpleat
     .then((res2) => {
       console.log(`L'empleat amb l'id ${searchId[i]} es diu ${res2()}`);
     })
@@ -96,8 +96,62 @@ for (let i = 0; i < searchId.length; i++) {
       console.log(err2.message);
     });
 }
-//No aconsegueixo implementar l'apartat de posar la funció getEmployee(), tot i que el codi fa el que deu
 
 //Nivell 2 Exercici 2: Crea una altra arrow function getSalary() similar a l'anterior que rebi com a paràmetre un objecte employee i retorni el seu salari.
+
+for (let i = 0; i < employees.length; i++) {
+  const busquedaSalari = new Promise((resolve, reject) => {
+    if (salaries.some((v) => v.id === employees[i].id)) {
+      const salari = () =>
+        salaries.find((x) => x.id === employees[i].id).salary;
+      resolve(salari);
+    } else {
+      reject(new Error(`No hi ha cap empleat amb l'id ${searchId[i]}`));
+    }
+  });
+  busquedaSalari
+    .then((res3) => {
+      console.log(
+        `L'empleat amb l'id ${
+          employees[i].id
+        } te un salari de ${res3()}€ al mes`
+      );
+    })
+    .catch((err3) => {
+      console.log(err3.message);
+    });
+}
+
+//Nivell 2 Exercici 3: Invoca la primera funció getEmployee() i després getSalary() niant l'execució de les dues promises de manera que es retorni per la consola el nom de l'empleat/da i el seu salari.
+var searchId2 = [1, 2, 3];
+for (let i = 0; i < searchId2.length; i++) {
+  const busquedaEmpleat = new Promise((resolve, reject) => {
+    if (employees.some((v) => v.id === searchId2[i])) {
+      const nom = () => employees.find((x) => x.id === searchId2[i]).name;
+      resolve(nom());
+    } else {
+      reject(new Error(`No hi ha cap empleat amb l'id ${searchId2[i]}`));
+    }
+  });
+
+  const busquedaSalari = new Promise((resolve, reject) => {
+    if (salaries.some((v) => v.id === employees[i].id)) {
+      const salari = () =>
+        salaries.find((x) => x.id === employees[i].id).salary;
+      resolve(salari());
+    } else {
+      reject(new Error(`No hi ha cap empleat amb l'id ${searchId2[i]}`));
+    }
+  });
+
+  Promise.all([busquedaEmpleat, busquedaSalari]).then((res) =>
+    console.log(res)
+  );
+}
+
+//No aconsegueixo implementar l'apartat de posar la funció getEmployee() i getSalary(), tot i que el codi fa el que deu
+
+//Nivell 3 Exercici 3: Fixa un element catch a la invocació del nivell anterior que capturi qualsevol error i el mostri per la consola.
+//Ja resolt al Nivell 2 Exercici 1, donat que es fan servir Id's que no pertanyen a l'Array i mostra un error en conseqüencia
 
 
