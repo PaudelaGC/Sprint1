@@ -163,6 +163,6 @@ for (let i = 0; i < searchId2.length; i++) {
 //Nivell 3 Exercici 3: Fixa un element catch a la invocació del nivell anterior que capturi qualsevol error i el mostri per la consola.
 //Ja resolt al Nivell 2 Exercici 1, donat que es fan servir Id's que no pertanyen a l'Array i mostra un error en conseqüencia
 
-//Corretgit per Alex
+//Corretgit per Alex 
 
 
