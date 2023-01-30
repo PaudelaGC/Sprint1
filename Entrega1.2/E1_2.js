@@ -34,7 +34,23 @@ class Personatge {
   }
 }
 
-//No he trobat com realitzar aquest procediment
+function crearPersonatge(nickname) {
+  let nicknameId = Object.create(Personatge.prototype);
+  nicknameId.nickname = nickname;
+  return nicknameId;
+}
+
+let lluitador = crearPersonatge("Kratos");
+lluitador instanceof Personatge;
+let mag = crearPersonatge("Gandalf");
+mag instanceof Personatge;
+
+console.log(lluitador.nickname);
+console.log(mag.nickname);
+
+
+
+//Nivell 1 i 2 corretgit per Ivan, Nivell 3 corretgit per Alex
 
 
 
