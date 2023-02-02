@@ -4,15 +4,15 @@ const fs = require('fs');
 
 const contingut = "Aquest fitxer es una nova prova, una mes, i m'acabo d'adonar que no podem posar accents perque el hexadecimal peta";
 
-escriure = contingut => {
-    fs.writeFile('fitxerProva.txt', contingut, err => {
+escriure = (nom, contingut) => {
+    fs.writeFile(nom, contingut, err => {
         if (err) {
             console.error(err);
         }
     });
 }
 
-escriure(contingut);
+escriure('fitxerProva.txt', contingut);
 
 
 //Nivell 1 Exercici 2: Crea una altra funció que mostri per consola el contingut del fitxer de l'exercici anterior.
@@ -90,24 +90,28 @@ exec('dir', {
 //Crea una altra funció que desencripti i descodifiqui els fitxers de l'apartat anterior tornant a generar una còpia de l'inicial.
 //Inclou un README amb instruccions per a l'execució de cada part.
 
-escriuHex = async fitxer => {
-    //Deixem un delay per poder escriure el fitxer al principi d'aquest codi
-    setTimeout(() => {
-        var textData = fitxer.toString();
-        var hex, i;
 
-        var result = "";
-        for (i = 0; i < textData.length; i++) {
-            hex = textData.charCodeAt(i).toString(16);
-            result += hex;
+escriuHex = fitxer => {
+
+    const textDataToHex = fs.readFileSync(fitxer);
+    const textDataTo64 = fs.readFileSync(fitxer);
+    //Això no funciona, i no he trobat la forma de resoldre-ho
+    var textHex = textDataToHex.toString('hex');
+    var textBase64 = textDataTo64.toString('base64');
+    fs.writeFile('fitxerProvaHex.txt', textHex, err => {
+        if (err) {
+            console.error(err);
         }
-
-        fs.writeFile('fitxerProvaHex.txt', result, err => {
-            if (err) {
-                console.error(err);
-            }
-        });
-    }, 2000);
+        console.log(`Fitxer encriptat a hex satisfactoriament`);
+    });
+    fs.writeFile('fitxerProva64.txt', textBase64, err => {
+        if (err) {
+            console.error(err);
+        }
+        console.log(`Fitxer encriptat a base64 satisfactoriament`);
+    });
 }
 
 escriuHex('fitxerProva.txt');
+
+//Revisat per Oriol
