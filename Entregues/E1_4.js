@@ -29,42 +29,50 @@ let salaries = [
     },
 ];
 
-const getEmployee = z => {
+const getEmployee = employeeId => {
+    let found = false;
     return new Promise((resolve, reject) => {
-        if (!Number.isInteger(z)) {
-            reject(new Error(`El parametre no es un id`));
-        } else
-            if (employees.some((v) => v.id === z)) {
-                const nom = employees.find((x) => x.id === z).name;
-                resolve(nom);
-            } else {
-                reject(new Error(`No hi ha cap empleat amb l'id ${z}`));
+        for (let i = 0; i < employees.length; i++) {
+            if (!found && employeeId === employees[i].id) {
+                found = true;
+                const empleat = (x, y) => ({
+                    id: x,
+                    nom: y,
+                });
+                resolve(empleat(employeeId, employees[i].name));
             }
-    })
-};
-
-const getSalary = y => {
-    return new Promise((resolve, reject) => {
-        if (employees.some((v) => v.name === y)) {
-            const id = employees.find((l) => l.name === y).id;
-            const salari = salaries.find((x) => x.id === id).salary;
-            const empleat = (x, y) => ({
-                nom: x,
-                salari: y,
-            });
-            resolve(empleat(y, salari));
-        } else {
-            reject(new Error(`No hi ha cap empleat amb el nom ${y}`));
+        }
+        if (!found) {
+            reject(new Error(`No hem trobat cap empleat amb l'id ${employeeId}`));
         }
     })
+}
 
-};
+const getSalary = employee => {
+    let found = false;
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < salaries.length; i++) {
+            if (!found && employee.id === salaries[i].id) {
+                found = true;
+                const salary = salaries[i].salary;
+                resolve(console.log(salary));
+            }
+        }
+        if (!found) {
+            reject(new Error(`No hem trobat cap salari amb un id que coincideixi amb el id rebut`));
+        }
+    })
+}
 
 async function mostrarEmpleatSalari(x) {
-    getEmployee(x)
-        .then(getSalary)
-        .then(res => console.log(res))
-        .catch(err => console.log(err.message))
+    try {
+        empleatNom = await getEmployee(x);
+        console.log(empleatNom);
+        empleatSalari = await getSalary(empleatNom);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 }
 
 mostrarEmpleatSalari(1);
@@ -76,35 +84,27 @@ mostrarEmpleatSalari("d");
 
 //Nivell 1 Exercici 2: Crea una nova funció asíncrona que cridi a una altra que retorni una Promise que efectuï la seva funció resolve() després de 2 segons de la seva invocació.
 
-async function prendreCafe() {
-    console.log("Primer preparem cafe...")
+async function beureCafe() {
+    console.log("Primer preparem cafe, trigarem 2 segons");
+    preparat = await prepararCafe();
+
+}
+
+const prepararCafe = async () => {
     setTimeout(() => {
-        prepararCafe()
-            .then(beureCafe)
-            .then(res => console.log(res));
+        return new Promise((resolve) => {
+            resolve(console.log("Cafe preparat i llest per beure!"));
+        })
     }, 2000);
 
 }
 
-const prepararCafe = () => {
-    return new Promise((resolve) => {
-        resolve("Cafe preparat");
-    })
-}
-
-const beureCafe = (x) => {
-    return new Promise((resolve) => {
-        resolve(`${x}, a gaudir del cafe!`);
-    })
-}
-
-prendreCafe();
-
+beureCafe();
 //Nivell 2 Exercici 1: Crea una funció que retorni el doble del número que li passa com a paràmetre després de 2 segons.
 //Crea una altra funció que rebi tres números i calculi la suma dels seus dobles fent servir la funció anterior.
 
 async function duplicar(x) {
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         console.log("El doble de " + x + " es...")
         if (Number.isInteger(x)) {
 
@@ -144,7 +144,7 @@ sumarTresDobles(1, 2, 3, 4);
 
 
 //Nivell 3 Exercici 1: Força i captura tants errors com puguis dels nivells 1 i 2.
-//Exercici resolt en els rejects dels exercicis anteriors
+//Els try-catchs ja estan implementats
 
 
 //Corretgit per Marta
