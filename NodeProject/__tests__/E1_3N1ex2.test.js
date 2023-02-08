@@ -1,6 +1,6 @@
 //Crea els tests corresponents per verificar el funcionament de les dues funcions de l'exercici Promises i Callbacks N1 E2.
 
-const { escollir, starter } = require('./E1_3N1ex2');
+const { escollir, starter } = require('./app/E1_3N1ex2');
 
 test("Escollir un dels inicials nomenats t'otorga dit inicial", () => {
     expect(escollir("Bulbasaur", starter)).toBe(`Has escollit a Bulbasaur, de tipus planta`);
