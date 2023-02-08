@@ -1,90 +1,65 @@
-function operacions(tipus, arrayOfNumbers) {
+//Nivell 1: Crea un arxiu amb les funcions sumar, restar, multiplicar i dividir dos o més operands. Testeja la correcta execució d'aquestes funcions.
+function operacio(tipus, arrayOfNumbers){
     let result = 0;
-    let NaN = false;
-    switch (tipus) {
-        case '+':
-            if (arrayOfNumbers) {
-                for (let i = 0; i < arrayOfNumbers.length; i++) {
-                    if (isNaN(arrayOfNumbers[i]) && !NaN) {
-                        NaN = true;
-                    }
-                    if (!NaN) {
+    if (Array.isArray(arrayOfNumbers)) {
+        if (arrayOfNumbers.length === 1) {
+            return arrayOfNumbers[0]
+        } else {
+            result = arrayOfNumbers[0];
+            for (let i = 1; i < arrayOfNumbers.length; i++) {
+                switch(tipus){
+                    case '+':
                         result = result + arrayOfNumbers[i];
-                    } else {
-                        return 'NaN';
-                    }
-                }
-                return result
-            } else {
-                return 0
-            }
-        case '-':
-            if (arrayOfNumbers && arrayOfNumbers.length != 0) {
-                result = arrayOfNumbers[0];
-                if (isNaN(result)) {
-                    NaN = true;
-                }
-                for (let i = 1; i < arrayOfNumbers.length; i++) {
-                    if (isNaN(arrayOfNumbers[i]) && !NaN) {
-                        NaN = true;
-                    }
-                    if (!NaN) {
+                        break;
+                    case '-':
                         result = result - arrayOfNumbers[i];
-                    } else {
-                        return 'NaN';
-                    }
-                }
-                return result
-            } else {
-                return 0
-            }
-        case '*':
-            if (arrayOfNumbers && arrayOfNumbers.length != 0) {
-                result = arrayOfNumbers[0];
-                if (isNaN(result)) {
-                    NaN = true;
-                }
-                for (let i = 1; i < arrayOfNumbers.length; i++) {
-                    if (isNaN(arrayOfNumbers[i]) && !NaN) {
-                        NaN = true;
-                    }
-                    if (!NaN) {
+                        break;
+                    case '*':
                         result = result * arrayOfNumbers[i];
-                    } else {
-                        return 'NaN';
-                    }
-                }
-                return result
-            } else {
-                return 0
-            }
-        case '/':
-            if (arrayOfNumbers && arrayOfNumbers.length != 0) {
-                result = arrayOfNumbers[0];
-                if (isNaN(result)) {
-                    NaN = true;
-                }
-                for (let i = 1; i < arrayOfNumbers.length; i++) {
-                    if (isNaN(arrayOfNumbers[i]) && !NaN) {
-                        NaN = true;
-                    }
-                    if (!NaN) {
+                        break;
+                    case '/':
+                        if(arrayOfNumbers[i] === 0){
+                            return "Not possible"
+                        }
                         result = result / arrayOfNumbers[i];
-                    } else {
-                        return 'NaN';
-                    }
+                        break;
+                    default:
+                        break;
                 }
-                if(Number.isFinite(result)){
-                    return result
-                }else{
-                    return "Not possible"
+            }
+            if (isNaN(result)) {
+                if (result != undefined) {
+                    return "NaN"
+                } else {
+                    return 0
                 }
             } else {
-                return 0
+                return result
             }
-        default:
-            break;
+        }
+    } else {
+        if (arrayOfNumbers != undefined) {
+            return arrayOfNumbers;
+        } else {
+            return 0;
+        }
     }
 }
 
-module.exports = operacions;
+function suma(arrayOfNumbers) {
+    return operacio('+', arrayOfNumbers);
+}
+
+function resta(arrayOfNumbers) {
+    return operacio('-', arrayOfNumbers);
+}
+
+function multiplicar(arrayOfNumbers) {
+    return operacio('*', arrayOfNumbers);
+}
+
+function dividir(arrayOfNumbers) {
+    return operacio('/', arrayOfNumbers);
+}
+
+module.exports = { suma, resta, multiplicar, dividir }
