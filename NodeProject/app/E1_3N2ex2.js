@@ -66,12 +66,8 @@ const getSalary = employee => {
 async function trobarSalari(idBuscada) {
     let x = await getEmployee(idBuscada)
     let y = await getSalary(x);
-    return console.log(y)
+    return y;
 }
 
-trobarSalari(1);
-trobarSalari(2);
-trobarSalari(3);
-//Això funciona fora del testing, es pot comprovar fent console.log, a dins retorna "{}", no he aconseguit esbrinar perquè
 
 module.exports = trobarSalari
