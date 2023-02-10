@@ -1,5 +1,7 @@
 const { suma, resta, multiplicar, dividir }  = require('./app/calculadora');
 
+
+describe('suite operacions matemàtiques', () => {
 //Suma
 test('(+) add 1 to 2 equals 3', () => {
     expect(suma([1, 2])).toBe(3);
@@ -172,3 +174,5 @@ test('(/) divide by 0 is not possible', () => {
     expect(dividir([0, 0])).toBe("Not possible");
     expect(dividir([0, 0, 0])).toBe("Not possible");
 });
+    
+})
