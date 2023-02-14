@@ -1,4 +1,4 @@
-const trobarSalari = require('./E1_3N2ex1&2');
+const trobarSalari = require('../app/E1_3N2ex1&2');
 
 describe('suite trobarSalari', () => {
     test("Pasar una ID que existeixi et retorna el salari de l'empleat amb aquesta ID", async () => {
