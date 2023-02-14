@@ -35,11 +35,7 @@ const getEmployee = employeeId => {
         for (let i = 0; i < employees.length; i++) {
             if (!found && employeeId === employees[i].id) {
                 found = true;
-                const empleat = (x, y) => ({
-                    id: x,
-                    nom: y,
-                });
-                resolve(empleat(employeeId, employees[i].name));
+                resolve(employees[i]);
             }
         }
         if (!found) {
@@ -55,7 +51,7 @@ const getSalary = employee => {
             if (!found && employee.id === salaries[i].id) {
                 found = true;
                 const salary = salaries[i].salary;
-                resolve(console.log(salary));
+                resolve(salary);
             }
         }
         if (!found) {
@@ -65,10 +61,13 @@ const getSalary = employee => {
 }
 
 async function mostrarEmpleatSalari(x) {
+    let empleatTotal = [];
     try {
         empleatNom = await getEmployee(x);
-        console.log(empleatNom);
+        empleatTotal.push(empleatNom);
         empleatSalari = await getSalary(empleatNom);
+        empleatTotal.push(empleatSalari);
+        console.log(empleatTotal);
     }
     catch (err) {
         console.log(err.message);
@@ -93,10 +92,14 @@ async function beureCafe() {
 const prepararCafe = async () => {
     setTimeout(() => {
         return new Promise((resolve) => {
-            resolve(console.log("Cafe preparat i llest per beure!"));
+            resolve(cafePreparat());
         })
     }, 2000);
 
+}
+
+function cafePreparat(){
+    console.log(`Cafè preparat i llest per beure!`);
 }
 
 beureCafe();
