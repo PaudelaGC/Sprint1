@@ -3,16 +3,19 @@
 resultat = nota => {
   return new Promise((resolve, reject) => {
     if (nota >= 5) {
-      const aprovat = `Has aprovat amb un ${nota}`;
-      resolve(console.log(aprovat));
+      resolve(aprovar(nota));
     } else {
       reject(new Error(`Has suspes amb un ${nota}, no pots continuar el curs`));
     }
   })
 }
 
-resultat(8);
-resultat(4.2);
+function aprovar(nota){
+  console.log(`Has aprovat el curs amb un ${nota}`);
+}
+
+resultat(8).then(res => res).catch(err => err.message);
+resultat(4.2).then(res => res).catch(err => console.log(err.message));
 
 //Nivell 1 Exercici 2: Crea una arrow function que rebi un paràmetre i una funció callback i li passi a la funció un missatge o un altre (que s'imprimirà per consola) en funció del paràmetre rebut.
 let starter = (tipus, eleccio) => {
@@ -81,11 +84,7 @@ const getEmployee = employeeId => {
     for (let i = 0; i < employees.length; i++) {
       if (!found && employeeId === employees[i].id) {
         found = true;
-        const empleat = (x, y) => ({
-          id: x,
-          nom: y,
-        });
-        resolve(empleat(employeeId, employees[i].name));
+        resolve(employees[i]);
       }
     }
     if(!found){
@@ -103,11 +102,11 @@ const getEmployee = employeeId => {
         if (!found && employee.id === salaries[i].id) {
           found = true;
           const salary =  salaries[i].salary;
-          resolve(console.log(salary));
+          resolve(salary);
         }
       }
       if(!found){
-        reject(new Error(`No hem trobat cap salari amb un id que coincideixi amb el id rebut`));
+        reject(new Error(`No hem trobat cap salari amb un id que coincideixi amb el id rebut`)); //Aquest codi mai es llegeix a no ser que els arrays d'empleats i id's tinguessin id's no coincidents
       }
     })
   }
@@ -115,18 +114,16 @@ const getEmployee = employeeId => {
 
 function mostrarEmpleatSalari(x) {
   getEmployee(x)
-      .then(console.log(getEmployee(x)))
       .then(getSalary)
-      .catch(err => console.log(err.message))
+      .then(res =>`${console.log(getEmployee(x))} ${console.log(res)}`)
+      .catch(err => console.log(err.message)) //Resposta del nivell 3
 }
 
 mostrarEmpleatSalari(1);
 mostrarEmpleatSalari(2);
 mostrarEmpleatSalari(3);
-
-//No he pogut resoldre-ho exactament com s'ha demanat
+mostrarEmpleatSalari(4);
 
 //Nivell 3 Exercici 3: Fixa un element catch a la invocació del nivell anterior que capturi qualsevol error i el mostri per la consola.
 //Realitzat a l'exercici anterior
 
-//Corretgit per Alex 
