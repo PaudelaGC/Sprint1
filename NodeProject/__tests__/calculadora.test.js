@@ -1,4 +1,4 @@
-const { suma, resta, multiplicar, dividir }  = require('./app/calculadora');
+const { suma, resta, multiplicar, dividir }  = require('../app/calculadora');
 
 
 describe('suite operacions matemàtiques', () => {
