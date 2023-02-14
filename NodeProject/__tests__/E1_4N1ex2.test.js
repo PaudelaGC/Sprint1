@@ -1,4 +1,4 @@
-const beureCafe = require('./E1_4N1ex2');
+const beureCafe = require('../app/E1_4N1ex2');
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
 
